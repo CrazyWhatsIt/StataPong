@@ -1,0 +1,60 @@
+version 15.1
+class state{
+	constant const
+	coordinate ballstart
+	coordinate ballcurrent
+	coordinate paddlestart
+	coordinate paddlecurrent
+	double xballvelocity
+	double yballvelocity
+	double gameover = 0
+}
+
+program .checkgameover
+	if `.ballcurrent.y' <= `.const.lowerbound'{
+		.gameover = 1
+	}
+end
+
+program .updateballposition
+	.ballcurrent.x = `.ballcurrent.x'  + (`.xballvelocity' * `.const.timestep')
+	.ballcurrent.y = `.ballcurrent.y' + (`.yballvelocity' * `.const.timestep')
+end
+
+program .checkwallcollision
+	if `.ballcurrent.x' >= `.const.rightbound' {
+		.reverseforce
+	}
+	if `.ballcurrent.x' <= `.const.leftbound' {
+		.reverseforce
+	}
+	if `.ballcurrent.y' >= `.const.upperbound' {
+		.reverseforce
+	}
+end
+
+program .reverseforce
+	if `.xballvelocity' < 0{
+		.xballvelocity = abs(`.xballvelocity')
+	}
+	else{
+		.xballvelocity = -`.xballvelocity'
+	}
+	if `.yballvelocity' < 0{
+		.yballvelocity = abs(`.yballvelocity')
+	}
+	else{
+		.yballvelocity = -`.yballvelocity'
+	}
+	local xtemp = `.xballvelocity'
+	local ytemp = `.yballvelocity'
+	.xballvelocity = `xtemp'
+	.yballvelocity = `ytemp'
+end
+
+program .auto_update_paddle_position
+	.paddlecurrent.x = .ballcurrent.x
+end
+
+program .update_paddle_position
+end

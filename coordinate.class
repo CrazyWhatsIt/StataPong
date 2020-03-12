@@ -1,0 +1,5 @@
+version 15.1
+class coordinate{
+	double x
+	double y
+}

@@ -1,0 +1,9 @@
+version 15.1
+class constant{
+	velocity = 1
+	timestep = 1
+	leftbound = 0
+	rightbound = 100
+	lowerbound = 0
+	upperbound = 100
+}
